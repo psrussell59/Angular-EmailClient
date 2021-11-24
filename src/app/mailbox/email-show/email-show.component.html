@@ -1,0 +1,13 @@
+<div class="header" *ngIf="email">
+    <div class="" >
+        <h3>{{ email.subject }}</h3>
+        <div>From: <i>{{ email.from }}</i></div>
+        <div>To: <i>{{ email.to }}</i></div>
+    </div>
+    <div>
+        <app-email-reply [email]='email'></app-email-reply>
+    </div>
+</div>
+<div class="ui content divider">
+    <div class="mt-4" [innerHtml]="email.html"></div>
+</div>

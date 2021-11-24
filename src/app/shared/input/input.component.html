@@ -1,0 +1,38 @@
+<div class="form form-group">
+    <label class="">{{ label }}</label>
+    <input
+    *ngIf="controlType === 'input'"
+    type="{{ inputType }}" 
+    class="form-control" 
+    [formControl]="control"/>
+    <textarea *ngIf="controlType === 'textarea'" [formControl]="control"></textarea>
+    <ng-container *ngIf="showErrors()">
+        <div class="ui pointing red basic label" *ngIf="control.errors['required']">
+            {{ label }} is a required field
+        </div>
+        <div class="ui pointing red basic label" *ngIf="control.errors['minlength']">
+            {{ label }} must be at least {{ control.errors.minlength.requiredLength }} characters
+        </div>
+        <div class="ui pointing red basic label" *ngIf="control.errors['maxlength']">
+            {{ label }} must be no more than {{ control.errors.maxlength.requiredLength }} characters
+        </div>
+        <div class="ui pointing red basic label" *ngIf="control.errors['pattern']">
+            {{ label }} is using invalid characters
+        </div>
+        <div class="ui pointing red basic label" *ngIf="control.errors['nonUniqueUsername']">
+            {{ label }} is not available
+        </div>
+        <div class="ui pointing red basic label" *ngIf="control.errors['connectionError']">
+            Unable to validate {{ label }} is unique. {{ control.errors.connectionError }}
+        </div>
+        <div class="ui pointing red basic label" *ngIf="control.errors['email']">
+            Enter a valid email
+        </div>
+    </ng-container>
+</div>
+
+<!-- [ngClass]="{'border-danger': (control.invalid && control.touched && control.dirty) || 
+    (control.parent.controls['password'].touched && control.parent.controls['password'].dirty && 
+    control.parent.controls['passwordConfirmation'].touched && control.parent.controls['passwordConfirmation'].dirty && 
+    name != 'username' && control.parent.invalid && 
+    control.parent.controls['password'].value != control.parent.controls['passwordConfirmation'].value)}"  -->

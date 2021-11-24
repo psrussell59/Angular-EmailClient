@@ -1,0 +1,23 @@
+    <div class="container">
+    <h3>Create an Account</h3>
+    <form (ngSubmit)="onSubmit()" class="ui form" [formGroup]="authForm">
+        <app-input name="username" inputType="text" label="Username" [control]="$any(authForm.get('username'))"></app-input>
+        <app-input name="password" inputType="password" label="Password" [control]="$any(authForm.get('password'))"></app-input>
+        <app-input name="passwordConfirmation" inputType="password" label="Confirm Password" [control]="$any(authForm.get('passwordConfirmation'))"></app-input>
+        <ng-container *ngIf="authForm.errors && authForm.controls['passwordConfirmation'].touched && authForm.controls['password'].touched">
+            <div class="ui pointing red basic label" *ngIf="authForm.errors['passwordsDontMatch']">
+                Passwords do not match
+            </div>
+            <div class="ui red basic label" *ngIf="authForm.errors['noConnection']">
+                No connection available. Failed to signup
+            </div>
+            <div class="ui red basic label" *ngIf="authForm.errors['unknownError']">
+                An unexpected error occured. {{ authForm.errors['errorMessage'] }}
+            </div>
+        </ng-container>
+        <div class="form-group mx-auto">
+            <button [disabled]="authForm.invalid" type="submit" class="ui button primary default">Submit</button>
+            <!-- <button type="button" class="ui button">Reset</button> -->
+        </div>
+    </form>
+</div>

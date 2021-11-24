@@ -1,0 +1,21 @@
+<div class="container">
+    <h3>Sign In</h3>
+    <form (ngSubmit)="onSubmit()" class="ui form" [formGroup]="authForm">
+        <ng-container *ngIf="authForm.errors">
+            <div class="ui red basic label" *ngIf="authForm.errors['invalidCredentials']">
+                Invalid signin credentials
+            </div>
+            <div class="ui red basic label" *ngIf="authForm.errors['noConnection']">
+                No connection available. Failed to signup
+            </div>
+            <div class="ui red basic label" *ngIf="authForm.errors['unknownError']">
+                An unexpected error occured. {{ authForm.errors['errorMessage'] }}
+            </div>
+        </ng-container>
+        <app-input name="username" inputType="text" label="Username" [control]="$any(authForm.get('username'))"></app-input>
+        <app-input name="password" inputType="password" label="Password" [control]="$any(authForm.get('password'))"></app-input>
+        <div class="ui actions">
+            <button [disabled]="authForm.invalid" type="submit" class="ui button primary default">Submit</button>
+            <!-- <button type="button" class="ui button ">Reset</button> -->
+        </div>
+    </form>
